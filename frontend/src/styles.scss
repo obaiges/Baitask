@@ -12,8 +12,17 @@
 
 body {
     color: white;
+    font-size: 14px;
 }
 
 :root {
-    --primary-color: #47cbff;
-  }
+    --primary: #3d5a80;
+    --secondary: #98c1d9;
+    --third: #e0fbfc;
+    --neon: #01b7fa;
+    --acent: #ee6c4d;
+    --light: #eef4f5;
+    --gray: #e4e4e4;
+    --dark: #232a36;
+}
+

@@ -14,3 +14,39 @@
     filter: brightness(0.4);
     z-index: 0;
 }
+
+.input {
+    background-color: var(--gray);
+    padding: .5rem 2rem;
+    width: 100%;
+    box-shadow: 1px 1px 2px var(--primary);
+    border-radius: 8px;
+    color: var(--dark);
+
+    &:focus,
+    &:active {
+        outline: 1px solid var(--primary) !important;
+    }
+}
+
+.input:-webkit-autofill {
+    background-color: var(--gray) !important;
+    -webkit-box-shadow:
+        0 0 0px 1000px var(--gray) inset,
+        1px 1px 2px var(--primary) !important;
+    box-shadow:
+        0 0 0px 1000px var(--gray) inset,
+        1px 1px 2px var(--primary);
+    -webkit-text-fill-color: var(--dark) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: var(--dark) !important;
+    background-color: var(--gray) !important;
+    padding: .5rem 2rem;
+    width: 100% !important;
+}
+
+.input:-webkit-autofill:focus,
+.input:-webkit-autofill:active {
+    outline: 1px solid var(--primary) !important;
+}

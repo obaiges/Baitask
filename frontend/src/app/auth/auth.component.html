@@ -1,18 +1,75 @@
 <div class="fondo relative">
-    <div class="w-screen h-screen flex justify-center items-center relative z-10 overflow-hidden">
-        <section class="p-4 border-2 rounded-md border-[var(--primary-color)] backdrop-blur-lg">
-            <div class="flex flex-col gap-4 items-center justify-center">
-                <img src="../../assets/img/logo.png" alt="logo" class="w-40">
-                <h1 class="text-2xl font-bold text-center">
-                    Iniciar sesión
-                </h1>
-                <form class="flex flex-col gap-4 items-center justify-center">
-                    <input type="text" placeholder="Usuario o correo" class="w-full bg-transparent border-[var(--primary-color)] p-2 border-b-[1px]">
-                    <input type="password" placeholder="Password" class="w-full bg-transparent border-[var(--primary-color)] p-2 border-b-[1px]">
-                    <button class="w-full p-2 border-2 rounded-md">
+    <div class="w-screen h-screen flex justify-center items-center relative z-10 p-8 overflow-hidden">
+        <section class="rounded-md shadow-[0px_0px_20px_var(--neon)] backdrop-blur-lg">
+            <div class="flex items-stretch justify-center">
+                <div class="flex flex-col gap-8 w-1/2 p-8 justify-center">
+                    <img src="../../assets/img/logo.png" alt="logo" class="w-48 m-auto">
+                    <p class="max-w-[30rem]">Gestiona tus proyectos de forma clara, rápida y eficiente. Esta plataforma
+                        te permite organizar tareas, crear recordatorios, visualizar calendarios, timelines y mover
+                        elementos fácilmente. </p>
+                    <p class="max-w-[30rem]">Optimiza el trabajo en equipo con una interfaz moderna, intuitiva y
+                        accesible desde cualquier
+                        dispositivo. Ideal para profesionales y equipos que buscan mantener el control total de sus
+                        flujos de trabajo y avanzar con foco y productividad.</p>
+                </div>
+                <div
+                    class="flex flex-col gap-8 p-8 justify-center bg-[var(--light)] box-border rounded-r-md items-center w-1/2">
+                    <h1 class="text-2xl font-bold text-center text-[var(--dark)]">
                         Iniciar sesión
-                    </button>
-                </form>
+                    </h1>
+                    <div class="flex flex-col gap-4 items-center justify-center">
+                        <div class="relative inline-block">
+                            <i class="absolute left-2 text-[var(--dark)] top-[50%] translate-y-[-50%] fas fa-user"></i>
+                            <input type="text" autocomplete="username" class="input" placeholder="Usuario o correo">
+                        </div>
+                        <div class="relative inline-block">
+                            <i class="absolute left-2 text-[var(--dark)] top-[50%] translate-y-[-50%] fas fa-key"></i>
+                            <input [type]="hidePassword ? 'password' : 'text'" name="password"
+                                autocomplete="current-password" id="passwordInput" class="pr-8 input"
+                                [(ngModel)]="password" placeholder="Contraseña">
+                            <span (click)="togglePassword()"
+                                class="absolute right-2 text-[var(--dark)] top-[50%] translate-y-[-50%] cursor-pointer">
+                                @if(password){
+                                @if(hidePassword) {
+                                <i class="fas fa-eye"></i>
+                                } @else {
+                                <i class="fas fa-eye-slash"></i>
+                                }
+                                }
+                            </span>
+                        </div>
+                        <div class="flex justify-between items-center gap-8">
+                            <div class="flex items-center gap-1 justify-between">
+                                <input type="checkbox" id="rememberMe" name="rememberMe">
+                                <label for="rememberMe" class="text-[var(--dark)] select-none text-sm">
+                                    Recordarme
+                                </label>
+                            </div>
+                            <div>
+                                <span class="text-sm text-[var(--dark)] hover:underline cursor-pointer">Olvidé mi
+                                    contraseña</span>
+                            </div>
+                        </div>
+                        <button
+                            class="w-full p-2 rounded-md shadow-[1px_1px_2px_var(--primary)]  bg-[var(--primary)] hover:bg-[#2f4766] text-white">
+                            Iniciar sesión
+                        </button>
+                        <div class="flex items-center w-full gap-2">
+                            <div class="flex-1 h-px bg-[var(--primary)]"></div>
+                            <span class="text-black">o</span>
+                            <div class="flex-1 h-px bg-[var(--primary)]"></div>
+                        </div>
+                        <button class="w-full flex items-center text-white">
+                            <span
+                                class="py-2 px-3 h-full shadow-[1px_1px_2px_var(--primary)] align-middle bg-[#862821] hover:bg-[#641c17] rounded-l-md"><i
+                                    class="fa-brands fa-google"></i></span>
+                            <span
+                                class="bg-[#d14b41] w-full shadow-[1px_1px_2px_var(--primary)] hover:bg-[#ac3931] p-2 rounded-r-md">Iniciar
+                                sesión con
+                                Google</span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
