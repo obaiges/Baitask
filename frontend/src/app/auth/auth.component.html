@@ -1,9 +1,10 @@
 <div class="fondo relative">
     <div class="w-screen h-screen flex justify-center items-center relative z-10 p-8 overflow-hidden">
-        <section class="rounded-md shadow-[0px_0px_20px_var(--neon)] backdrop-blur-lg">
-            <div class="flex items-stretch justify-center">
-                <div class="flex flex-col gap-8 w-1/2 p-8 justify-center">
-                    <img src="../../assets/img/logo.png" alt="logo" class="w-48 m-auto">
+        <section class="rounded-md shadow-[0px_0px_20px_var(--neon)] backdrop-blur-lg relative overflow-hidden">
+            <div id="container" class="flex items-stretch justify-center">
+                <div id="left"
+                    class="flex flex-col gap-8 w-1/2 p-8 justify-center transition-transform duration-700 z-10">
+                    <img src="../../assets/img/logo.png" alt="logo" class="w-48 mx-auto">
                     <p class="max-w-[30rem]">Gestiona tus proyectos de forma clara, rápida y eficiente. Esta plataforma
                         te permite organizar tareas, crear recordatorios, visualizar calendarios, timelines y mover
                         elementos fácilmente. </p>
@@ -12,9 +13,10 @@
                         dispositivo. Ideal para profesionales y equipos que buscan mantener el control total de sus
                         flujos de trabajo y avanzar con foco y productividad.</p>
                 </div>
-                <div
-                    class="flex flex-col gap-8 p-8 justify-center bg-[var(--light)] box-border rounded-r-md items-center w-1/2">
-                    <h1 class="text-2xl font-bold text-center text-[var(--dark)]">
+                <div id="right"
+                    class="flex flex-col gap-6 p-8 justify-center bg-[var(--light)] box-border transition-transform duration-700 z-10 {{login == true ? 'rounded-r-md' : 'rounded-l-md'}} items-center w-1/2">
+                    <h1 id="textHeader"
+                        class="text-3xl font-bold text-center text-[var(--dark)] transition-opacity duration-300 opacity-100">
                         Iniciar sesión
                     </h1>
                     <div class="flex flex-col gap-4 items-center justify-center">
@@ -50,24 +52,31 @@
                                     contraseña</span>
                             </div>
                         </div>
-                        <button
-                            class="w-full p-2 rounded-md shadow-[1px_1px_2px_var(--primary)]  bg-[var(--primary)] hover:bg-[#2f4766] text-white">
-                            Iniciar sesión
-                        </button>
-                        <div class="flex items-center w-full gap-2">
-                            <div class="flex-1 h-px bg-[var(--primary)]"></div>
-                            <span class="text-black">o</span>
-                            <div class="flex-1 h-px bg-[var(--primary)]"></div>
+                        <div class="flex flex-col gap-6 items-center w-full">
+                            <div class="flex flex-col gap-2 w-full items-center justify-center">
+                                <button
+                                    class="w-full p-2 rounded-md shadow-[1px_1px_2px_var(--primary)]  bg-[var(--primary)] hover:bg-[#2f4766] text-white">
+                                    Iniciar sesión
+                                </button>
+                                <div class="flex items-center w-full gap-2">
+                                    <div class="flex-1 h-px bg-[var(--primary)]"></div>
+                                    <span class="text-black">o</span>
+                                    <div class="flex-1 h-px bg-[var(--primary)]"></div>
+                                </div>
+                                <button class="w-full flex items-center text-white group">
+                                    <span
+                                        class="py-2 px-3 h-full shadow-[1px_1px_2px_var(--primary)] align-middle bg-[#862821] group-hover:bg-[#641c17] rounded-l-md"><i
+                                            class="fa-brands fa-google"></i></span>
+                                    <span
+                                        class="bg-[#d14b41] w-full shadow-[1px_1px_2px_var(--primary)] group-hover:bg-[#ac3931] p-2 rounded-r-md">Iniciar
+                                        sesión con Google</span>
+                                </button>
+                            </div>
+                            <div class="text-[var(--dark)] w-full text-sm justify-start text-start hover:underline cursor-pointer"
+                                (click)="swapLogin()">
+                                <span>¿No tienes cuenta? Registrate</span>
+                            </div>
                         </div>
-                        <button class="w-full flex items-center text-white">
-                            <span
-                                class="py-2 px-3 h-full shadow-[1px_1px_2px_var(--primary)] align-middle bg-[#862821] hover:bg-[#641c17] rounded-l-md"><i
-                                    class="fa-brands fa-google"></i></span>
-                            <span
-                                class="bg-[#d14b41] w-full shadow-[1px_1px_2px_var(--primary)] hover:bg-[#ac3931] p-2 rounded-r-md">Iniciar
-                                sesión con
-                                Google</span>
-                        </button>
                     </div>
                 </div>
             </div>
