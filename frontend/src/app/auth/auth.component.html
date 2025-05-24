@@ -14,67 +14,135 @@
                         flujos de trabajo y avanzar con foco y productividad.</p>
                 </div>
                 <div id="right"
-                    class="flex flex-col gap-6 p-8 justify-center bg-[var(--light)] box-border transition-transform duration-700 z-10 {{login == true ? 'rounded-r-md' : 'rounded-l-md'}} items-center w-1/2">
-                    <h1 id="textHeader"
-                        class="text-3xl font-bold text-center text-[var(--dark)] transition-opacity duration-300 opacity-100">
-                        Iniciar sesión
-                    </h1>
-                    <div class="flex flex-col gap-4 items-center justify-center">
-                        <div class="relative inline-block">
-                            <i class="absolute left-2 text-[var(--dark)] top-[50%] translate-y-[-50%] fas fa-user"></i>
-                            <input type="text" autocomplete="username" class="input" placeholder="Usuario o correo">
-                        </div>
-                        <div class="relative inline-block">
-                            <i class="absolute left-2 text-[var(--dark)] top-[50%] translate-y-[-50%] fas fa-key"></i>
-                            <input [type]="hidePassword ? 'password' : 'text'" name="password"
-                                autocomplete="current-password" id="passwordInput" class="pr-8 input"
-                                [(ngModel)]="password" placeholder="Contraseña">
-                            <span (click)="togglePassword()"
-                                class="absolute right-2 text-[var(--dark)] top-[50%] translate-y-[-50%] cursor-pointer">
-                                @if(password){
-                                @if(hidePassword) {
-                                <i class="fas fa-eye"></i>
-                                } @else {
-                                <i class="fas fa-eye-slash"></i>
-                                }
-                                }
-                            </span>
-                        </div>
-                        <div class="flex justify-between items-center gap-8">
-                            <div class="flex items-center gap-1 justify-between">
-                                <input type="checkbox" id="rememberMe" name="rememberMe">
-                                <label for="rememberMe" class="text-[var(--dark)] select-none text-sm">
-                                    Recordarme
-                                </label>
-                            </div>
-                            <div>
-                                <span class="text-sm text-[var(--dark)] hover:underline cursor-pointer">Olvidé mi
-                                    contraseña</span>
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-6 items-center w-full">
-                            <div class="flex flex-col gap-2 w-full items-center justify-center">
-                                <button
-                                    class="w-full p-2 rounded-md shadow-[1px_1px_2px_var(--primary)]  bg-[var(--primary)] hover:bg-[#2f4766] text-white">
-                                    Iniciar sesión
-                                </button>
-                                <div class="flex items-center w-full gap-2">
-                                    <div class="flex-1 h-px bg-[var(--primary)]"></div>
-                                    <span class="text-black">o</span>
-                                    <div class="flex-1 h-px bg-[var(--primary)]"></div>
+                    class="flex flex-col gap-6 justify-center bg-[var(--light)] box-border transition-transform duration-500 z-10 {{login == true ? 'rounded-r-md' : 'rounded-l-md'}} items-center w-1/2 h-[450px]">
+                    <div class="relative w-full h-full p-36">
+                        <div [ngClass]="login ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'"
+                            class=" absolute inset-0 w-full transition-opacity duration-500 flex flex-col gap-4 items-center justify-center">
+                            <h1 class="text-3xl text-nowrap font-bold text-center text-[var(--dark)]">
+                                Iniciar sesión
+                            </h1>
+                            <div class="flex flex-col gap-4 items-center justify-center">
+                                <div class="relative inline-block">
+                                    <i
+                                        class="absolute left-2 text-[var(--dark)] top-[50%] translate-y-[-50%] fas fa-user"></i>
+                                    <input type="text" autocomplete="username" class="input"
+                                        placeholder="Usuario o correo">
                                 </div>
-                                <button class="w-full flex items-center text-white group">
-                                    <span
-                                        class="py-2 px-3 h-full shadow-[1px_1px_2px_var(--primary)] align-middle bg-[#862821] group-hover:bg-[#641c17] rounded-l-md"><i
-                                            class="fa-brands fa-google"></i></span>
-                                    <span
-                                        class="bg-[#d14b41] w-full shadow-[1px_1px_2px_var(--primary)] group-hover:bg-[#ac3931] p-2 rounded-r-md">Iniciar
-                                        sesión con Google</span>
-                                </button>
+                                <div class="relative inline-block">
+                                    <i
+                                        class="absolute left-2 text-[var(--dark)] top-[50%] translate-y-[-50%] fas fa-key"></i>
+                                    <input [type]="hidePassword ? 'password' : 'text'" name="password"
+                                        autocomplete="current-password" id="passwordInput" class="pr-8 input"
+                                        [(ngModel)]="password" placeholder="Contraseña">
+                                    <span (click)="togglePassword()"
+                                        class="absolute right-2 text-[var(--dark)] top-[50%] translate-y-[-50%] cursor-pointer">
+                                        @if(password){
+                                        @if(hidePassword) {
+                                        <i class="fas fa-eye"></i>
+                                        } @else {
+                                        <i class="fas fa-eye-slash"></i>
+                                        }
+                                        }
+                                    </span>
+                                </div>
+                                <div class="flex justify-between items-center gap-8">
+                                    <div class="flex items-center gap-1 justify-between">
+                                        <input type="checkbox" id="rememberMe" name="rememberMe">
+                                        <label for="rememberMe" class="text-[var(--dark)] select-none text-sm">
+                                            Recordarme
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <span
+                                            class="text-sm text-[var(--dark)] text-nowrap hover:underline cursor-pointer">Olvidé
+                                            mi contraseña</span>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-6 items-center w-full">
+                                    <div class="flex flex-col gap-2 w-full items-center justify-center">
+                                        <button
+                                            class="w-full p-2 rounded-md shadow-[1px_1px_2px_var(--primary)]  bg-[var(--primary)] hover:bg-[#2f4766] text-white">
+                                            Iniciar sesión
+                                        </button>
+                                        <div class="flex items-center w-full gap-2">
+                                            <div class="flex-1 h-px bg-[var(--primary)]"></div>
+                                            <span class="text-black">o</span>
+                                            <div class="flex-1 h-px bg-[var(--primary)]"></div>
+                                        </div>
+                                        <button class="w-full flex items-center text-white group">
+                                            <span
+                                                class="py-2 px-3 h-full shadow-[1px_1px_2px_var(--primary)] align-middle bg-[#862821] group-hover:bg-[#641c17] rounded-l-md"><i
+                                                    class="fa-brands fa-google"></i></span>
+                                            <span
+                                                class="bg-[#d14b41] w-full shadow-[1px_1px_2px_var(--primary)] group-hover:bg-[#ac3931] p-2 rounded-r-md">Iniciar
+                                                sesión con Google</span>
+                                        </button>
+                                    </div>
+                                    <div class="text-[var(--dark)] w-full text-sm justify-start text-start hover:underline cursor-pointer"
+                                        (click)="swapLogin()">
+                                        <span>¿No tienes cuenta? Registrate</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="text-[var(--dark)] w-full text-sm justify-start text-start hover:underline cursor-pointer"
-                                (click)="swapLogin()">
-                                <span>¿No tienes cuenta? Registrate</span>
+                        </div>
+                        <div [ngClass]="!login ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'"
+                            class=" absolute inset-0 px-12 w-full transition-opacity duration-500 flex flex-col gap-4 items-center justify-center">
+                            <h1 class="text-3xl font-bold text-center text-[var(--dark)]">
+                                Registrarse
+                            </h1>
+                            <div class="flex flex-col gap-4 items-center justify-center">
+                                <div class="relative inline-block">
+                                    <i
+                                        class="absolute left-2 text-[var(--dark)] top-[50%] translate-y-[-50%] fas fa-envelope"></i>
+                                    <input type="text" autocomplete="username" class="input" placeholder="Correo">
+                                </div>
+                                <div class="relative inline-block">
+                                    <i
+                                        class="absolute left-2 text-[var(--dark)] top-[50%] translate-y-[-50%] fas fa-key"></i>
+                                    <input [type]="hidePassword ? 'password' : 'text'" name="password"
+                                        autocomplete="current-password" id="passwordInput" class="pr-8 input"
+                                        [(ngModel)]="password" placeholder="Contraseña">
+                                    <span (click)="togglePassword()"
+                                        class="absolute right-2 text-[var(--dark)] top-[50%] translate-y-[-50%] cursor-pointer">
+                                        @if(password){
+                                        @if(hidePassword) {
+                                        <i class="fas fa-eye"></i>
+                                        } @else {
+                                        <i class="fas fa-eye-slash"></i>
+                                        }
+                                        }
+                                    </span>
+                                </div>
+                                <div class="flex items-center float-start w-full gap-1">
+                                    <input type="checkbox" id="rememberMe2" name="rememberMe2">
+                                    <label for="rememberMe2" class="text-[var(--dark)] select-none text-sm">
+                                        Recordarme
+                                    </label>
+                                </div>
+                                <div class="flex flex-col gap-6 items-center w-full">
+                                    <div class="flex flex-col gap-2 w-full items-center justify-center">
+                                        <button
+                                            class="w-full p-2 rounded-md shadow-[1px_1px_2px_var(--primary)]  bg-[var(--primary)] hover:bg-[#2f4766] text-white">
+                                            Registrarse
+                                        </button>
+                                        <div class="flex items-center w-full gap-2">
+                                            <div class="flex-1 h-px bg-[var(--primary)]"></div>
+                                            <span class="text-black">o</span>
+                                            <div class="flex-1 h-px bg-[var(--primary)]"></div>
+                                        </div>
+                                        <button class="w-full flex items-center text-white group">
+                                            <span
+                                                class="py-2 px-3 h-full shadow-[1px_1px_2px_var(--primary)] align-middle bg-[#862821] group-hover:bg-[#641c17] rounded-l-md"><i
+                                                    class="fa-brands fa-google"></i></span>
+                                            <span
+                                                class="bg-[#d14b41] w-full shadow-[1px_1px_2px_var(--primary)] group-hover:bg-[#ac3931] p-2 rounded-r-md">Registrarse con Google</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="text-[var(--dark)] w-full text-sm justify-start text-start hover:underline cursor-pointer"
+                                    (click)="swapLogin()">
+                                    <span>¿Ya tienes cuenta? Iniciar sesión</span>
+                                </div>
                             </div>
                         </div>
                     </div>

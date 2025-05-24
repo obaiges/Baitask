@@ -1,9 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-auth',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
 })
@@ -22,7 +23,6 @@ export class AuthComponent {
   swapLogin() {
     const left = document.getElementById("left")!;
     const right = document.getElementById("right")!;
-    const textHeader = document.getElementById("textHeader")!;
 
     if (this.login) {
       // Mover a la derecha
@@ -32,11 +32,6 @@ export class AuthComponent {
       left.style.transform = 'translateX(0)';
       right.style.transform = 'translateX(0)';
     }
-    textHeader.style.opacity = '0';
-    setTimeout(() => {
-      textHeader.textContent = this.login ? "Iniciar sesión" : "Registrarse";
-      textHeader.style.opacity = '1';
-    }, 300); // Espera a que termine el fade out
 
     this.login = !this.login;
   }
