@@ -25,7 +25,7 @@
                                 <div class="relative inline-block">
                                     <i
                                         class="absolute left-2 text-[var(--dark)] top-[50%] translate-y-[-50%] fas fa-user"></i>
-                                    <input type="text" autocomplete="username" class="input"
+                                    <input type="text" autocomplete="username" [(ngModel)]="username" class="input"
                                         placeholder="Usuario o correo">
                                 </div>
                                 <div class="relative inline-block">
@@ -33,7 +33,7 @@
                                         class="absolute left-2 text-[var(--dark)] top-[50%] translate-y-[-50%] fas fa-key"></i>
                                     <input [type]="hidePassword ? 'password' : 'text'" name="password"
                                         autocomplete="current-password" id="passwordInput" class="pr-8 input"
-                                        [(ngModel)]="password" placeholder="Contraseña">
+                                        [(ngModel)]="password" (keyup.enter)="logearme()" placeholder="Contraseña">
                                     <span (click)="togglePassword()"
                                         class="absolute right-2 text-[var(--dark)] top-[50%] translate-y-[-50%] cursor-pointer">
                                         @if(password){
@@ -61,7 +61,7 @@
                                 <div class="flex flex-col gap-6 items-center w-full">
                                     <div class="flex flex-col gap-2 w-full items-center justify-center">
                                         <button
-                                            class="w-full p-2 rounded-md shadow-[1px_1px_2px_var(--primary)]  bg-[var(--primary)] hover:bg-[#2f4766] text-white">
+                                            class="w-full p-2 rounded-md shadow-[1px_1px_2px_var(--primary)]  bg-[var(--primary)] hover:bg-[#2f4766] text-white" (click)="logearme()">
                                             Iniciar sesión
                                         </button>
                                         <div class="flex items-center w-full gap-2">
@@ -100,8 +100,7 @@
                                     <i
                                         class="absolute left-2 text-[var(--dark)] top-[50%] translate-y-[-50%] fas fa-key"></i>
                                     <input [type]="hidePassword ? 'password' : 'text'" name="password"
-                                        autocomplete="current-password" id="passwordInput" class="pr-8 input"
-                                        [(ngModel)]="password" placeholder="Contraseña">
+                                        autocomplete="current-password" id="passwordInput" class="pr-8 input" placeholder="Contraseña">
                                     <span (click)="togglePassword()"
                                         class="absolute right-2 text-[var(--dark)] top-[50%] translate-y-[-50%] cursor-pointer">
                                         @if(password){

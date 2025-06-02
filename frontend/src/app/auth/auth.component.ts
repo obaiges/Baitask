@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 export class AuthComponent {
 
   password?: string;
+  username?: string;
 
   login = true;
 
@@ -34,6 +35,27 @@ export class AuthComponent {
     }
 
     this.login = !this.login;
+  }
+
+  logearme() {
+    let body = {
+      name: this.username,
+      password: this.password
+    }
+    fetch('http://192.168.0.32:8080/users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
 

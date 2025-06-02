@@ -5,6 +5,7 @@ const PORT = 3000;
 app.use(express.json());
 
 const cors = require('cors');
+const { conf } = require('./conf');
 app.use(cors());
 
 app.get('/api/saludo', (req, res) => {
@@ -12,5 +13,5 @@ app.get('/api/saludo', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Servidor backend escuchando en http://localhost:${PORT}`);
+  console.log(`Servidor backend escuchando en ${conf.ip}`);
 });

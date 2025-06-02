@@ -12,8 +12,7 @@ export class AuthService {
   ) { }
 
   login(username: string, password: string) {
-    // Aquí deberías hacer una llamada HTTP a un backend real.
-    
+
   }
 
   logout(): void {
@@ -24,6 +23,9 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('token');
+    if (isPlatformBrowser(this.platformId)) {
+      return !!localStorage.getItem('token');
+    }
+    return false;
   }
 }
