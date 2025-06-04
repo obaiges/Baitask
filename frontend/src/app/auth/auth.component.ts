@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -13,9 +14,16 @@ export class AuthComponent {
   password?: string;
   username?: string;
 
+  email?: string;
+  passwordR?: string;
+
   login = true;
 
   hidePassword: boolean = true;
+
+  constructor(
+    private authService: AuthService
+  ) { }
 
   togglePassword(): void {
     this.hidePassword = !this.hidePassword;
@@ -38,24 +46,24 @@ export class AuthComponent {
   }
 
   logearme() {
+    if (!this.username || !this.password) return;
     let body = {
-      name: this.username,
-      password: this.password
+      name: this.username!,
+      password: this.password!
     }
-    fetch('http://192.168.0.32:8080/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    this.authService.login(body.name, body.password).subscribe({
+      next: (data) => console.log(data),
+      error: (err) => console.log(err)
+    });
+  }
+
+  registrarse() {
+    if (!this.email || !this.passwordR) return;
+    let body = {
+      email: this.email!,
+      password: this.passwordR!
+    }
+    this.authService.register(body.email, body.password).subscribe({});
   }
 
 

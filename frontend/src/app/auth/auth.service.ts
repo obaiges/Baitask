@@ -1,4 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -6,13 +7,24 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
+
   constructor(
     private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private http: HttpClient
   ) { }
 
-  login(username: string, password: string) {
 
+  private readonly API_BASE_URL = 'http://192.168.0.30:3000/api';
+
+  endpoint = 'auth';  // sin slash inicial, para concatenar fácil
+
+  login(username: string, password: string) {
+    return this.http.post<any[]>(`${this.API_BASE_URL}/${this.endpoint}/login`, { username, password });
+  }
+
+  register(email: string, password: string) {
+    return this.http.post<any[]>(`${this.API_BASE_URL}/${this.endpoint}/register`, { email, password });
   }
 
   logout(): void {
