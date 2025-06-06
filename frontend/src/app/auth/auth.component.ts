@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from './auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-auth',
@@ -20,6 +21,7 @@ export class AuthComponent {
   login = true;
 
   hidePassword: boolean = true;
+  showName: boolean = false;
 
   constructor(
     private authService: AuthService
@@ -34,6 +36,7 @@ export class AuthComponent {
     const right = document.getElementById("right")!;
 
     if (this.login) {
+      this.showName = false;
       // Mover a la derecha
       left.style.transform = 'translateX(100%)';
       right.style.transform = 'translateX(-100%)';
@@ -57,13 +60,29 @@ export class AuthComponent {
     });
   }
 
+
   registrarse() {
-    if (!this.email || !this.passwordR) return;
     let body = {
       email: this.email!,
       password: this.passwordR!
     }
-    this.authService.register(body.email, body.password).subscribe({});
+    return this.authService.register(body.email, body.password).subscribe({
+      next: () => {
+        this.showName = true
+      },
+      error: (err) => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "bottom",
+          showConfirmButton: false,
+          timer: 2000,
+        })
+        return Toast.fire({
+          icon: "error",
+          title: err.status === 409 ? "El email ya existe" : err.status === 400 ? "Faltan datos" : "Error inesperado"
+        });
+      }
+    });
   }
 
 

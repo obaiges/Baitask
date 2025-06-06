@@ -31,14 +31,19 @@ authRouter.post('/login', async (req, res) => {
 
 authRouter.post('/register', async (req, res) => {
     const { email, password } = req.body;
-    if (!email || !password) return res.status(400).json({ error: 'Faltan datos' });
+    if (!email || !password) {
+        return res.status(400).json({ error: 'Faltan datos' });
+    }
+
+    const exists = await authRepo.exists(email);
+    if (exists.length > 0) {
+        return res.status(409).json({ error: 'El email ya existe' });
+    }
 
     const hashedPassword = await hashPassword(password);
+    await authRepo.register(email, hashedPassword);
 
-    const newUser = await authRepo.register(email, hashedPassword);
-    console.log(newUser);
-
-    res.json({ mensaje: 'Usuario registrado' });
+    res.status(201).json({ mensaje: 'Usuario registrado' });
 });
 
 export default authRouter;

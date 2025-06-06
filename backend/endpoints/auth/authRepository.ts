@@ -8,6 +8,10 @@ export class AuthRepository {
     }
 
     async register(email: string, password: string) {
-        return await query(`INSERT INTO usuarios (id, email, password) VALUES (UUID(), ?, ?);`, [email, password]);
+        return await query(`INSERT INTO usuarios (id, email, password, date_add) VALUES (UUID(), ?, ?, now());`, [email, password]);
+    }
+
+    async exists(email: string) {
+        return await query('SELECT * FROM usuarios where email = ?', [email]);
     }
 }
