@@ -103,7 +103,7 @@
                                     <i
                                         class="absolute left-2 text-[var(--dark)] top-[50%] translate-y-[-50%] fas fa-key"></i>
                                     <input [type]="hidePassword ? 'password' : 'text'" [(ngModel)]="passwordR"
-                                        (keyup.enter)="registrarse()" autocomplete="current-password" id="passwordInput"
+                                        (keyup.enter)="comprueboRegistro()" autocomplete="current-password" id="passwordInput"
                                         class="pr-8 input" placeholder="Contraseña">
                                     <span (click)="togglePassword()"
                                         class="absolute right-2 text-[var(--dark)] top-[50%] translate-y-[-50%] cursor-pointer">
@@ -125,8 +125,8 @@
                                 <div class="flex flex-col gap-6 items-center w-full">
                                     <div class="flex flex-col gap-2 w-full items-center justify-center">
                                         <button
-                                            class="w-full p-2 rounded-md shadow-[1px_1px_2px_var(--primary)]  bg-[var(--primary)] hover:bg-[#2f4766] text-white"
-                                            (click)="registrarse()">
+                                            class="w-full p-2 rounded-md shadow-[1px_1px_2px_var(--primary)] bg-[var(--primary)] hover:bg-[#2f4766] text-white"
+                                            (click)="comprueboRegistro()">
                                             Registrarse
                                         </button>
                                         <div class="flex items-center w-full gap-2">
@@ -144,15 +144,30 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div class="text-[var(--dark)] w-full text-sm justify-start text-start hover:underline cursor-pointer"
+                                <div class="text-[var(--dark)] w-full mt-2 text-sm justify-start text-start hover:underline cursor-pointer"
                                     (click)="swapLogin()">
                                     <span>¿Ya tienes cuenta? Iniciar sesión</span>
                                 </div>
                             </div>
                             } @else {
-                                <h1 class="text-6xl font-bold text-center text-[var(--dark)]">
-                                    Bienvenido
+                            <div class="flex flex-col gap-6 items-center w-full">
+                                <h1 class="text-4xl font-bold text-[var(--dark)]">
+                                    ¿Como quieres que te vean en Baitask?
                                 </h1>
+                                <div class="relative w-full inline-block">
+                                    <i
+                                        class="absolute left-2 text-[var(--dark)] top-[50%] translate-y-[-50%] fas fa-user"></i>
+                                    <input type="text" [(ngModel)]="name" (input)="comprobarUsername()" class="input"
+                                        placeholder="Nombre de usuario">
+                                </div>
+                                <button class="w-full p-2 rounded-md shadow-[1px_1px_2px_var(--primary)] bg-[var(--primary)] hover:bg-[#2f4766] text-white disabled:opacity-50" (click)="registrarse()" [disabled]="comprobandoUsername || alreadyExists">
+                                    @if(comprobandoUsername) {
+                                        <i class="fa-solid fa-spinner fa-spin"></i>
+                                    } @else {
+                                        {{ alreadyExists ? "Nombre ya existente" : "Crear cuenta" }}
+                                    }
+                                </button>
+                            </div>
                             }
                         </div>
                     </div>

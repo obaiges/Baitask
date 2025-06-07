@@ -23,8 +23,16 @@ export class AuthService {
     return this.http.post<any[]>(`${this.API_BASE_URL}/${this.endpoint}/login`, { username, password });
   }
 
-  register(email: string, password: string) {
-    return this.http.post<any[]>(`${this.API_BASE_URL}/${this.endpoint}/register`, { email, password });
+  checkRegistrer(email: string, password: string) {
+    return this.http.post<any[]>(`${this.API_BASE_URL}/${this.endpoint}/checkRegistrer`, { email, password });
+  }
+
+  checkUsername(username: string) {
+    return this.http.post<any[]>(`${this.API_BASE_URL}/${this.endpoint}/checkUsername`, { username });
+  }
+
+  register(email: string, password: string, name: string) {
+    return this.http.post<any[]>(`${this.API_BASE_URL}/${this.endpoint}/register`, { email, password, name });
   }
 
   logout(): void {

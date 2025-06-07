@@ -29,10 +29,16 @@ authRouter.post('/login', async (req, res) => {
     res.json({ user });
 });
 
-authRouter.post('/register', async (req, res) => {
+authRouter.post('/checkRegistrer', async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
         return res.status(400).json({ error: 'Faltan datos' });
+    }
+
+    const emailValidation = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+    if (!email.match(emailValidation)) {
+        return res.status(406).json({ error: 'Formato de email incorrecto' });
     }
 
     const exists = await authRepo.exists(email);
@@ -40,8 +46,28 @@ authRouter.post('/register', async (req, res) => {
         return res.status(409).json({ error: 'El email ya existe' });
     }
 
+    res.status(201).json({ mensaje: 'Verificado' });
+});
+
+authRouter.post('/checkUsername', async (req, res) => {
+    const { username } = req.body;
+
+    const exists = await authRepo.checkUsername(username);
+    if (exists.length > 0) {
+        return res.status(409).json({ error: 'El nombre de usuario ya existe' });
+    }
+
+    if (username.length < 3) {
+        return res.status(406).json({ error: 'El nombre de usuario debe tener al menos 3 caracteres' });
+    }
+    res.status(201).json({ mensaje: 'Nombre de usuario válido' });
+});
+
+authRouter.post('/register', async (req, res) => {
+    const { email, password, name } = req.body;
+
     const hashedPassword = await hashPassword(password);
-    await authRepo.register(email, hashedPassword);
+    await authRepo.register(email, name, hashedPassword);
 
     res.status(201).json({ mensaje: 'Usuario registrado' });
 });
