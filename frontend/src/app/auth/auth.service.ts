@@ -2,6 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,13 @@ export class AuthService {
   endpoint = 'auth';  // sin slash inicial, para concatenar fácil
 
   login(username: string, password: string) {
-    return this.http.post<any[]>(`${this.API_BASE_URL}/${this.endpoint}/login`, { username, password });
+    return this.http.post<{ token: string }>(`${this.API_BASE_URL}/${this.endpoint}/login`, { username, password }).pipe(
+    tap(response => {
+      if (isPlatformBrowser(this.platformId)) {
+        localStorage.setItem('token', response.token);
+      }
+    })
+  );
   }
 
   checkRegistrer(email: string, password: string) {
@@ -42,10 +49,14 @@ export class AuthService {
     }
   }
 
-  isAuthenticated(): boolean {
+  getToken(): string | null {
     if (isPlatformBrowser(this.platformId)) {
-      return !!localStorage.getItem('token');
+      return localStorage.getItem('token');
     }
-    return false;
+    return null;
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.getToken();
   }
 }

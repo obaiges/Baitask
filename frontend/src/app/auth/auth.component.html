@@ -1,4 +1,5 @@
-<div class="fondo relative">
+@if(!loading()) {
+<div class="fondo">
     <div class="w-screen h-screen flex justify-center items-center relative z-10 p-8 overflow-hidden">
         <section class="rounded-md shadow-[0px_0px_20px_var(--neon)] backdrop-blur-lg relative overflow-hidden">
             <div id="container" class="flex items-stretch justify-center">
@@ -103,8 +104,8 @@
                                     <i
                                         class="absolute left-2 text-[var(--dark)] top-[50%] translate-y-[-50%] fas fa-key"></i>
                                     <input [type]="hidePassword ? 'password' : 'text'" [(ngModel)]="passwordR"
-                                        (keyup.enter)="comprueboRegistro()" autocomplete="current-password" id="passwordInput"
-                                        class="pr-8 input" placeholder="Contraseña">
+                                        (keyup.enter)="comprueboRegistro()" autocomplete="current-password"
+                                        id="passwordInput" class="pr-8 input" placeholder="Contraseña">
                                     <span (click)="togglePassword()"
                                         class="absolute right-2 text-[var(--dark)] top-[50%] translate-y-[-50%] cursor-pointer">
                                         @if(password || passwordR){
@@ -160,11 +161,13 @@
                                     <input type="text" [(ngModel)]="name" (input)="comprobarUsername()" class="input"
                                         placeholder="Nombre de usuario">
                                 </div>
-                                <button class="w-full p-2 rounded-md shadow-[1px_1px_2px_var(--primary)] bg-[var(--primary)] hover:bg-[#2f4766] text-white disabled:opacity-50" (click)="registrarse()" [disabled]="comprobandoUsername || alreadyExists">
+                                <button
+                                    class="w-full p-2 rounded-md shadow-[1px_1px_2px_var(--primary)] bg-[var(--primary)] hover:bg-[#2f4766] text-white disabled:opacity-50"
+                                    (click)="registrarse()" [disabled]="comprobandoUsername || alreadyExists">
                                     @if(comprobandoUsername) {
-                                        <i class="fa-solid fa-spinner fa-spin"></i>
+                                    <i class="fa-solid fa-spinner fa-spin"></i>
                                     } @else {
-                                        {{ alreadyExists ? "Nombre ya existente" : "Crear cuenta" }}
+                                    {{ alreadyExists ? "Nombre ya existente" : "Crear cuenta" }}
                                     }
                                 </button>
                             </div>
@@ -176,3 +179,4 @@
         </section>
     </div>
 </div>
+}

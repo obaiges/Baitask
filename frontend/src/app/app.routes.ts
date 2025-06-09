@@ -4,7 +4,7 @@ import { AuthComponent } from './auth/auth.component';
 import { AuthGuardService } from './auth/auth-guard.service';
 
 export const routes: Routes = [
+    { path: '', component: HomeComponent, canActivate: [AuthGuardService], pathMatch: 'full' },
     { path: 'login', component: AuthComponent },
-    { path: '', component: HomeComponent, canActivate: [AuthGuardService] },
-    { path: '**', redirectTo: '' }
+    { path: '**', redirectTo: '' },
 ];

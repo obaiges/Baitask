@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from './auth.service';
 import Swal from 'sweetalert2';
 import { debounceTime, Subject } from 'rxjs';
+import { printError } from '../utils/printError';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -28,16 +30,28 @@ export class AuthComponent implements OnInit {
   alreadyExists: boolean = false;
   private usernameSubject = new Subject<string>();
 
+  loading = signal(true);
+
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.loading.set(true)
+
+    this.password = undefined;
+    this.username = undefined;
+    this.email = undefined;
+    this.passwordR = undefined;
+    this.name = undefined;
+
     this.usernameSubject
       .pipe(debounceTime(500)) // espera 500ms después de que deje de escribir
       .subscribe((value) => {
         this.checkUsername(value);
       });
+    this.loading.set(false);
   }
 
   togglePassword(): void {
@@ -62,22 +76,9 @@ export class AuthComponent implements OnInit {
   }
 
   logearme() {
-    if (!this.username || !this.password) return;
-    let body = {
-      name: this.username!,
-      password: this.password!
-    }
-    this.authService.login(body.name, body.password).subscribe({
-      next: (data) => console.log(data),
-      error: (err) => console.log(err)
-    });
-  }
-
-
-  comprueboRegistro() {
-    return this.authService.checkRegistrer(this.email!, this.passwordR!).subscribe({
-      next: () => {
-        this.showName = true
+    return this.authService.login(this.username!, this.password!).subscribe({
+      next: (data) => {
+        this.router.navigate(['']);
       },
       error: (err) => {
         const Toast = Swal.mixin({
@@ -90,6 +91,18 @@ export class AuthComponent implements OnInit {
           icon: "error",
           title: err.error.error,
         });
+      }
+    });
+  }
+
+
+  comprueboRegistro() {
+    return this.authService.checkRegistrer(this.email!, this.passwordR!).subscribe({
+      next: () => {
+        this.showName = true
+      },
+      error: (err) => {
+        printError(err);
       }
     });
   }
@@ -117,22 +130,13 @@ export class AuthComponent implements OnInit {
   }
 
   registrarse() {
-    if(this.email == null || this.passwordR == null || this.name == null) return;
+    if (this.email == null || this.passwordR == null || this.name == null) return;
     this.authService.register(this.email, this.passwordR, this.name).subscribe({
       next: () => {
-        
+        this.router.navigate(['']);
       },
       error: (err) => {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "bottom",
-          showConfirmButton: false,
-          timer: 2000,
-        })
-        return Toast.fire({
-          icon: "error",
-          title: err.error.error,
-        });
+        printError(err);
       }
     });
   }
