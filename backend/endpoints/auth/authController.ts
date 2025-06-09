@@ -1,7 +1,9 @@
 import { Router } from 'express';
 import { AuthRepository } from './authRepository';
 import bcrypt from 'bcrypt';
+import { conf } from '../../conf';
 
+const jwt = require('jsonwebtoken');
 const authRouter = Router();
 const authRepo = new AuthRepository()
 
@@ -19,14 +21,21 @@ async function comparePasswords(plainPassword: string, hashedPassword: string): 
 
 authRouter.post('/login', async (req, res) => {
     const { username, password } = req.body;
-
-    const users = await authRepo.login(username, password);
+    if (!username || !password) {
+        return res.status(400).json({ error: 'Faltan datos' });
+    }
+    const users = await authRepo.login(username);
     if (users.length === 0) return res.status(401).json({ error: 'Usuario no encontrado' });
     const user = users[0];
     const isValid = await comparePasswords(password, user.password);
     if (!isValid) return res.status(401).json({ error: 'Contraseña incorrecta' });
 
-    res.json({ user });
+    const token = jwt.sign(
+        { id: user.guid, username: user.username }, // payload
+        conf.secret_key, // secret
+        { expiresIn: '1h' } // duración del token
+    );
+    res.json({ token });
 });
 
 authRouter.post('/checkRegistrer', async (req, res) => {
