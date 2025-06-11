@@ -77,20 +77,11 @@ export class AuthComponent implements OnInit {
 
   logearme() {
     return this.authService.login(this.username!, this.password!).subscribe({
-      next: (data) => {
-        this.router.navigate(['']);
+      next: () => {
+        this.router.navigate([''], { replaceUrl: true });
       },
       error: (err) => {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "bottom",
-          showConfirmButton: false,
-          timer: 2000,
-        })
-        return Toast.fire({
-          icon: "error",
-          title: err.error.error,
-        });
+        printError(err);
       }
     });
   }

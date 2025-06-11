@@ -25,6 +25,7 @@ export class AuthService {
     tap(response => {
       if (isPlatformBrowser(this.platformId)) {
         localStorage.setItem('token', response.token);
+        localStorage.setItem('username', username);
       }
     })
   );
@@ -45,8 +46,15 @@ export class AuthService {
   logout(): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('token');
+      localStorage.removeItem('username');
       this.router.navigate(['/login']);
     }
+  }
+  getUsername(): string | null {
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem('username');
+    }
+    return null;
   }
 
   getToken(): string | null {

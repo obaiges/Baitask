@@ -9,10 +9,12 @@ export class AuthGuardService implements CanActivate {
   constructor(private authService: AuthService, private router: Router) { }
 
   canActivate(): boolean | UrlTree {
-    if (this.authService.isAuthenticated()) {
+    const isAuth = this.authService.isAuthenticated();
+    
+    if (isAuth) {
       return true;
     } else {
-      // Devuelve un UrlTree para redirigir sin montar el componente actual
+      // Redirección inmediata sin retardo
       return this.router.parseUrl('/login');
     }
   }
