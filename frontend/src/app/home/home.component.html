@@ -1,5 +1,9 @@
 <div class="fondo">
-    <div class="absolute top-0 left-0">
-<button class="" (click)="logout()">Cerrar sesión</button>
+    <div class="absolute w-full h-full top-0 left-0">
+        <header class="w-full py-2 px-4 bg-[var(--dark)] flex justify-between items-center">
+            <span>Hola</span>
+            <button class="w-8 h-8 rounded-full bg-[var(--secondary)] text-black font-bold" (click)="logout()">{{getIniciales().toUpperCase()}}</button>
+
+        </header>
     </div>
 </div>

@@ -18,4 +18,8 @@ export class HomeComponent {
     this.authService.logout();
   }
 
+  getIniciales() {
+    return this.authService.getUsername()!.substring(0, 2);
+  }
+
 }
