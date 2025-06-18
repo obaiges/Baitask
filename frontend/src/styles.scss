@@ -1,9 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
+@use '@angular/material' as mat;
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 
 * {
     margin: 0;
@@ -16,14 +16,31 @@ body {
 }
 
 :root {
-    --primary: #3d5a80;
-    --secondary: #98c1d9;
-    --third: #e0fbfc;
-    --neon: #01b7fa;
-    --acent: #ee6c4d;
-    --light: #eef4f5;
-    --gray: #e4e4e4;
-    --dark-gray: #8f8f8f;
+    --primary: #071739;
+    --secondary: #4b6382;
+    --third: #a4b5c4;
+    --acent: #a68868;
+    --acent-light: #e3c39d;
+    --light: #cdd5db;
+    --gray: #8f8f8f;
     --dark: #232a36;
+    --neon: #01b7fa;
+    --white: #ffffff;
+
+    @include mat.menu-overrides((container-color: var(--secondary),
+            item-label-text-color: var(--light),
+            item-icon-color: var(--light),
+            item-hover-state-layer-color: var(--dark)));
 }
 
+
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

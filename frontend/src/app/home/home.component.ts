@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
+import { MatMenuModule } from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
+
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [MatMenuModule, MatIconModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
